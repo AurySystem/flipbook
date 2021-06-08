@@ -123,6 +123,7 @@ function changeExp() {
         char.partsId = char.exp[this.value].faces[0];
     }
     sync();
+    prepDownloadButton();
 }
 
 function sync() {
@@ -147,7 +148,6 @@ function changePart(id, value) {
     }
     char.partsId[id] = value;
     draw();
-    prepDownloadButton();
 }
 
 function fitParts(ex,ey) {
@@ -232,7 +232,7 @@ function animate(i) {
 function prepDownloadButton() {
     var element = document.createElement('button');
     element.id = "DL";
-    element.onlick = function (e) {
+    element.onclick = function (e) {
         var canvas = document.getElementById("c-1");
         if (char.exp[char.expId].anim != undefined) {
             for (var i = 0; i < char.exp[char.expId].anim.length; i++) {
@@ -249,7 +249,7 @@ function prepDownloadButton() {
         }
     };
     element.innerText = "Download (temp feature will remove after procressing)";
-    document.getElementById("tempDL").appendChild(element)
+    document.getElementById("tempDL").appendChild(element);
 }
 
 function downloadFile(filename, data) {
