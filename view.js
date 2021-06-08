@@ -242,12 +242,14 @@ function prepDownloadButton() {
             while (i < char.exp[char.expId].anim.length) {
                 char.partsId = char.exp[char.expId].faces[char.exp[char.expId].anim[i]];
                 sync();
-                canvas.toBlob(function (blob) {
+                var passed = 0;
+                var tmp = function (blob) {
                     downloadFile(char.expId + "_" + i, blob);
-
-                });
-                i++
-                
+                    passed = 1;
+                }
+                canvas.toBlob(tmp);
+                i += passed;
+                passed = 0;
             }
         } else {
             canvas.toBlob(function (blob) {
