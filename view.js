@@ -234,6 +234,7 @@ function prepDownloadButton() {
     element.id = "DL";
     element.onclick = function (e) {
         var canvas = document.getElementById("c-1");
+        var makeURL = new URL();
         if (char.exp[char.expId].anim != undefined) {
             for (var i = 0; i < char.exp[char.expId].anim.length; i++) {
                 char.partsId = char.exp[char.expId].faces[char.exp[char.expId].anim[i]];
