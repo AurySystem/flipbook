@@ -231,7 +231,7 @@ function animate(i) {
     setTimeout(function () { animate(ni) }, 1000 * char.exp[char.expId].time);
 
 }
-
+var passed = 0;
 function prepDownloadButton() {
     var element = document.createElement('button');
     element.id = "DL";
@@ -242,14 +242,13 @@ function prepDownloadButton() {
             while (i < char.exp[char.expId].anim.length) {
                 char.partsId = char.exp[char.expId].faces[char.exp[char.expId].anim[i]];
                 sync();
-                var passed = 0;
+                passed = 0;
                 var tmp = function (blob) {
                     downloadFile(char.expId + "_" + i, blob);
                     passed = 1;
                 }
                 canvas.toBlob(tmp);
                 i += passed;
-                passed = 0;
             }
         } else {
             canvas.toBlob(function (blob) {
