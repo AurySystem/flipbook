@@ -123,6 +123,9 @@ function changeExp() {
         char.partsId = char.exp[this.value].faces[0];
     }
     sync();
+    if (document.getElementById("DL") != null || document.getElementById("DL") != undefined) {
+        document.getElementById("DL").remove();
+    }
     prepDownloadButton();
 }
 
@@ -238,9 +241,11 @@ function prepDownloadButton() {
             for (var i = 0; i < char.exp[char.expId].anim.length; i++) {
                 char.partsId = char.exp[char.expId].faces[char.exp[char.expId].anim[i]];
                 sync();
-                canvas.toBlob(function (blob) {
-                    downloadFile(char.expId + "_" + i, blob);
-                });
+                setTimeout(function () {
+                    canvas.toBlob(function (blob) {
+                        downloadFile(char.expId + "_" + i, blob);
+                    });
+                }, 30)
             }
         } else {
             canvas.toBlob(function (blob) {
