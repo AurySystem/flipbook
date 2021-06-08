@@ -249,7 +249,7 @@ function prepDownloadButton() {
         }
     };
     element.innerText = "Download (temp feature will remove after procressing)";
-    document.appendChild(element)
+    document.getElementById("tempDL").appendChild(element)
 }
 
 function downloadFile(filename, data) {
