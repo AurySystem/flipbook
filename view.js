@@ -238,12 +238,14 @@ function prepDownloadButton() {
     element.onclick = function (e) {
         var canvas = document.getElementById("c-1");
         if (char.exp[char.expId].anim != undefined) {
-            for (var i = 0; i < char.exp[char.expId].anim.length; i++) {
+            var i = 0;
+            for (i = 0; i < char.exp[char.expId].anim.length;) {
                 char.partsId = char.exp[char.expId].faces[char.exp[char.expId].anim[i]];
                 sync();
                 setTimeout(function () {
                     canvas.toBlob(function (blob) {
                         downloadFile(char.expId + "_" + i, blob);
+                        i++
                     });
                 }, 30)
             }
