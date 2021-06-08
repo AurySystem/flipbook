@@ -34,6 +34,7 @@ function clean() {
         width: 0,
         height: 0
     }
+    document.getElementById("DL").remove;
 }
 
 function genRow(id) {
@@ -144,6 +145,7 @@ function changePart(id, value) {
     }
     char.partsId[id] = value;
     draw();
+    prepDownloadButton();
 }
 
 function fitParts(ex,ey) {
@@ -223,6 +225,42 @@ function animate(i) {
     sync();
     setTimeout(function () { animate(ni) }, 1000 * char.exp[char.expId].time);
 
+}
+
+function prepDownloadButton() {
+    var element = document.createElement('button');
+    element.id = "DL";
+    element.onlick = function (e) {
+        var canvas = document.getElementById("c-1");
+        if (char.exp[char.expId].anim != undefined) {
+            for (var i = 0; i < char.exp[char.expId].anim.length; i++) {
+                char.partsId = char.exp[char.expId].faces[char.exp[char.expId].anim[i]];
+                sync();
+                canvas.toBlob(function (blob) {
+                    downloadFile(char.expId + "_" + i, makeURL.createObjectURL(blob));
+                });
+            }
+        } else {
+            canvas.toBlob(function (blob) {
+                downloadFile(char.expId, makeURL.createObjectURL(blob));
+            });
+        }
+    };
+    element.innerText = "Download (temp feature will remove after procressing)";
+    document.appendChild(element)
+}
+
+function downloadFile(filename, data) {
+    var element = document.createElement('a');
+    element.setAttribute('href', makeURL.createObjectURL(data);
+    element.setAttribute('download', filename);
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
 }
 
 function init() {
