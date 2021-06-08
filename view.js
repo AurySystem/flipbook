@@ -252,7 +252,7 @@ function prepDownloadButton() {
 
 function downloadFile(filename, data) {
     var element = document.createElement('a');
-    element.setAttribute('href', makeURL.createObjectURL(data);
+    element.setAttribute('href', makeURL.createObjectURL(data));
     element.setAttribute('download', filename);
 
     element.style.display = 'none';
