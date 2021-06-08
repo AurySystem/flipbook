@@ -250,7 +250,7 @@ function prepDownloadButton() {
                 for (var i = 0; i < char.exp[char.expId].anim.length; i++) {
                     char.partsId = char.exp[char.expId].faces[char.exp[char.expId].anim[i]];
                     draw();
-                    blob = await getCanvasBlob(canvas, quality);
+                    blob = await getCanvasBlob(canvas);
                     downloadFile(char.expId + "_" + i, blob);
                 }
             }
