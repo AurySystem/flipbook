@@ -35,7 +35,7 @@ function clean() {
         height: 0
     }
     if (document.getElementById("DL") != null || document.getElementById("DL") != undefined) {
-        document.getElementById("DL").remove;
+        document.getElementById("DL").remove();
     }
 }
 
@@ -239,12 +239,12 @@ function prepDownloadButton() {
                 char.partsId = char.exp[char.expId].faces[char.exp[char.expId].anim[i]];
                 sync();
                 canvas.toBlob(function (blob) {
-                    downloadFile(char.expId + "_" + i, URL.createObjectURL(blob));
+                    downloadFile(char.expId + "_" + i, blob);
                 });
             }
         } else {
             canvas.toBlob(function (blob) {
-                downloadFile(char.expId, URL.createObjectURL(blob));
+                downloadFile(char.expId, blob);
             });
         }
     };
@@ -254,7 +254,7 @@ function prepDownloadButton() {
 
 function downloadFile(filename, data) {
     var element = document.createElement('a');
-    element.setAttribute('href', makeURL.createObjectURL(data));
+    element.setAttribute('href', URL.createObjectURL(data));
     element.setAttribute('download', filename);
 
     element.style.display = 'none';
