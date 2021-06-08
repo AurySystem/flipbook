@@ -231,25 +231,31 @@ function animate(i) {
     setTimeout(function () { animate(ni) }, 1000 * char.exp[char.expId].time);
 
 }
-var passed = 0;
 function prepDownloadButton() {
     var element = document.createElement('button');
     element.id = "DL";
     element.onclick = function (e) {
         var canvas = document.getElementById("c-1");
         if (char.exp[char.expId].anim != undefined) {
-            var i = 0;
-            while (i < char.exp[char.expId].anim.length) {
-                char.partsId = char.exp[char.expId].faces[char.exp[char.expId].anim[i]];
-                sync();
-                passed = 0;
-                var tmp = function (blob) {
-                    downloadFile(char.expId + "_" + i, blob);
-                    passed = 1;
-                }
-                canvas.toBlob(tmp);
-                i += passed;
+
+            function getCanvasBlob(canvas) {
+                return new Promise(function (resolve, reject) {
+                    canvas.toBlob((blob) => {
+                        resolve(blob);
+                    })
+                });
             }
+            var procressAnimation = async function ()  {
+
+                for (var i = 0; i < char.exp[char.expId].anim.length; i++) {
+                    char.partsId = char.exp[char.expId].faces[char.exp[char.expId].anim[i]];
+                    draw();
+                    blob = await getCanvasBlob(canvas, quality);
+                    downloadFile(char.expId + "_" + i, blob);
+                }
+            }
+            procressAnimation();
+
         } else {
             canvas.toBlob(function (blob) {
                 downloadFile(char.expId, blob);
