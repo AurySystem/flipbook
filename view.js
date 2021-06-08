@@ -34,7 +34,9 @@ function clean() {
         width: 0,
         height: 0
     }
-    document.getElementById("DL").remove;
+    if (document.getElementById("DL") != null || document.getElementById("DL") != undefined) {
+        document.getElementById("DL").remove;
+    }
 }
 
 function genRow(id) {
